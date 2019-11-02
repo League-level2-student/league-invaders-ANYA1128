@@ -13,7 +13,7 @@ public class LeagueInvaders {
 
 	LeagueInvaders() {
 		this.frame = frame;
-		this.gPanel=gPanel;
+		this.gPanel = gPanel;
 	}
 
 	void setup() {
@@ -22,7 +22,7 @@ public class LeagueInvaders {
 		frame.setVisible(true);
 		frame.addKeyListener(gPanel);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 	}
 
 	private void setDefaultCloseOperation(int exitOnClose) {

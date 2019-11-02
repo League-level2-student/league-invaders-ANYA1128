@@ -18,14 +18,14 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Font instructionsFont;
 	Font scoreFont;
 	Timer frameDraw;
-	Rocketship rocketShip = new Rocketship(250,700,50,50);
+	Rocketship rocketShip = new Rocketship(250, 700, 50, 50);
 
 	GamePanel() {
 		titleFont = new Font("Arial", Font.PLAIN, 48);
 		instructionsFont = new Font("Arial", Font.PLAIN, 23);
 		scoreFont = new Font("Arial", Font.PLAIN, 35);
-		frameDraw = new Timer(1000/60,this);
-	    frameDraw.start();
+		frameDraw = new Timer(1000 / 100, this);
+		frameDraw.start();
 
 	}
 
@@ -80,7 +80,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.drawString("You killed enemies", 96, 350);
 		g.setFont(instructionsFont);
 		g.drawString("Press ENTER to restart", 120, 600);
-		
+
 	}
 
 	@Override
@@ -88,52 +88,56 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		// TODO Auto-generated method stub
 		System.out.println("action");
 		repaint();
-		if(currentState == MENU){
-		    updateMenuState();
+		if (currentState == MENU) {
+			updateMenuState();
 		}
-		
-		else if(currentState == GAME){
-		    updateGameState();
+
+		else if (currentState == GAME) {
+			updateGameState();
 		}
-		
-		else if(currentState == END){
-		    updateEndState();
+
+		else if (currentState == END) {
+			updateEndState();
 		}
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		if (e.getKeyCode()==KeyEvent.VK_ENTER) {
-		    if (currentState == END) {
-		        currentState = MENU;
-		    } else {
-		        currentState++;
-		    }
-		} 
-		if (e.getKeyCode()==KeyEvent.VK_UP) {
-		    System.out.println("UP");
+		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+			if (currentState == END) {
+				currentState = MENU;
+			} else {
+				currentState++;
+			}
+		} else if (e.getKeyCode() == KeyEvent.VK_UP && rocketShip.y >= 0) {
+			System.out.println("UP");
+			rocketShip.up();
+
+		} else if (e.getKeyCode() == KeyEvent.VK_DOWN && rocketShip.y <= 710) {
+			System.out.println("DOWN");
+			rocketShip.down();
+
+		} else if (e.getKeyCode() == KeyEvent.VK_LEFT && rocketShip.x >= 0) {
+			System.out.println("LEFT");
+			rocketShip.left();
+
+		} else if (e.getKeyCode() == KeyEvent.VK_RIGHT && rocketShip.x <= 450) {
+			System.out.println("RIGHT");
+			rocketShip.right();
 		}
-		if (e.getKeyCode()==KeyEvent.VK_DOWN) {
-		    System.out.println("DOWN");
-		}
-		if (e.getKeyCode()==KeyEvent.VK_LEFT) {
-		    System.out.println("LEFT");
-		}
-		if (e.getKeyCode()==KeyEvent.VK_RIGHT) {
-		    System.out.println("RIGHT");
-		}
+
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }
