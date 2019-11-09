@@ -18,4 +18,5 @@ public class Projectile extends GameObject {
 		g.fillRect(x, y, width, height);
 
 	}
+	
 }

@@ -19,7 +19,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Font scoreFont;
 	Timer frameDraw;
 	Rocketship rocketShip = new Rocketship(250, 700, 50, 50);
-
+ObjectManager obj = new
 	GamePanel() {
 		titleFont = new Font("Arial", Font.PLAIN, 48);
 		instructionsFont = new Font("Arial", Font.PLAIN, 23);
