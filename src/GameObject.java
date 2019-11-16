@@ -16,7 +16,7 @@ public class GameObject {
 		isActive = true;
 	}
 
-	void emptyUpdate() {
+	void update() {
 
 	}
 }

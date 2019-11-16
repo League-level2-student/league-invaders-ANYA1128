@@ -11,10 +11,7 @@ public class LeagueInvaders {
 		invaders.setup();
 	}
 
-	LeagueInvaders() {
-		this.frame = frame;
-		this.gPanel = gPanel;
-	}
+	
 
 	void setup() {
 		frame.add(gPanel);

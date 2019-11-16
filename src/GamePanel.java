@@ -5,7 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -14,23 +16,29 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	final int GAME = 1;
 	final int END = 2;
 	int currentState = MENU;
-	Font titleFont;
-	Font instructionsFont;
-	Font scoreFont;
-	Timer frameDraw;
-	Rocketship rocketShip = new Rocketship(250, 700, 50, 50);
-ObjectManager obj = new
-	GamePanel() {
-		titleFont = new Font("Arial", Font.PLAIN, 48);
-		instructionsFont = new Font("Arial", Font.PLAIN, 23);
-		scoreFont = new Font("Arial", Font.PLAIN, 35);
-		frameDraw = new Timer(1000 / 100, this);
-		frameDraw.start();
-
+	public static BufferedImage image;
+	public static boolean needImage = true;
+	public static boolean gotImage = false;	
+	
+	Font titleFont = new Font("Arial", Font.PLAIN, 48);
+	Font instructionsFont = new Font("Arial", Font.PLAIN, 23);
+	Font scoreFont = new Font("Arial", Font.PLAIN, 35);
+	
+	
+	Rocketship rocket = new Rocketship(250, 700, 50, 50);
+	ObjectManager obj = new ObjectManager(rocket);
+	
+GamePanel(){
+	if (needImage) {
+	    loadImage ("rocket.png");
 	}
+}
+	
 
 	@Override
 	public void paintComponent(Graphics g) {
+		Timer frameDraw = new Timer(1000 / 100, this);
+		frameDraw.start();
 		if (currentState == MENU) {
 			drawMenuState(g);
 		}
@@ -43,11 +51,22 @@ ObjectManager obj = new
 			drawEndState(g);
 		}
 	}
-
+	void loadImage(String imageFile) {
+	    if (needImage) {
+	        try {
+	            image = ImageIO.read(this.getClass().getResourceAsStream(imageFile));
+		    gotImage = true;
+	        } catch (Exception e) {
+	            
+	        }
+	        needImage = false;
+	    }
+	}
 	void updateMenuState() {
 	}
 
 	void updateGameState() {
+		obj.update();
 	}
 
 	void updateEndState() {
@@ -65,9 +84,14 @@ ObjectManager obj = new
 	}
 
 	void drawGameState(Graphics g) {
-		g.setColor(Color.BLACK);
-		g.fillRect(0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT);
-		rocketShip.draw(g);
+		if (gotImage) {
+			g.drawImage(image, 0, 0, WIDTH, HEIGHT, null);
+		} else {
+			g.setColor(Color.BLUE);
+			g.fillRect(500, 800, WIDTH, HEIGHT);
+		}
+		obj.draw(g);
+	
 	}
 
 	void drawEndState(Graphics g) {
@@ -86,7 +110,7 @@ ObjectManager obj = new
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		System.out.println("action");
+		
 		repaint();
 		if (currentState == MENU) {
 			updateMenuState();
@@ -116,21 +140,21 @@ ObjectManager obj = new
 			} else {
 				currentState++;
 			}
-		} else if (e.getKeyCode() == KeyEvent.VK_UP && rocketShip.y >= 0) {
+		} else if (e.getKeyCode() == KeyEvent.VK_UP && rocket.y >= 0) {
 			System.out.println("UP");
-			rocketShip.up();
+			rocket.up();
 
-		} else if (e.getKeyCode() == KeyEvent.VK_DOWN && rocketShip.y <= 710) {
+		} else if (e.getKeyCode() == KeyEvent.VK_DOWN && rocket.y <= 710) {
 			System.out.println("DOWN");
-			rocketShip.down();
+			rocket.down();
 
-		} else if (e.getKeyCode() == KeyEvent.VK_LEFT && rocketShip.x >= 0) {
+		} else if (e.getKeyCode() == KeyEvent.VK_LEFT && rocket.x >= 0) {
 			System.out.println("LEFT");
-			rocketShip.left();
+			rocket.left();
 
-		} else if (e.getKeyCode() == KeyEvent.VK_RIGHT && rocketShip.x <= 450) {
+		} else if (e.getKeyCode() == KeyEvent.VK_RIGHT && rocket.x <= 450) {
 			System.out.println("RIGHT");
-			rocketShip.right();
+			rocket.right();
 		}
 
 	}
