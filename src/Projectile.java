@@ -19,11 +19,12 @@ public class Projectile extends GameObject {
 
 	public void update() {
 		y -= speed;
+		super.update();
 	}
 	void loadImage(String imageFile) {
 	    if (needImage) {
 	        try {
-	            image = ImageIO.read(this.getClass().getResourceAsStream(imageFile));
+	            image = ImageIO.read(this.getClass().getResourceAsStream("bullet.png"));
 		    gotImage = true;
 	        } catch (Exception e) {
 	            
@@ -32,8 +33,7 @@ public class Projectile extends GameObject {
 	    }
 	}
 	public void draw(Graphics g) {
-		g.setColor(Color.RED);
-		g.fillRect(x, y, width, height);
+		 
 		if (gotImage) {
 			g.drawImage(image, x, y, width, height, null);
 		} else {
