@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
@@ -8,6 +9,7 @@ public class Rocketship extends GameObject {
 	public static BufferedImage image;
 	public static boolean needImage = true;
 	public static boolean gotImage = false;	
+
 	Rocketship(int x, int y, int width, int height) {
 		super(x, y, width, height);
 		speed = 15;
