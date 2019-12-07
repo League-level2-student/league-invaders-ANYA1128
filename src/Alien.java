@@ -12,7 +12,7 @@ public class Alien extends GameObject {
 
 	Alien(int x, int y, int width, int height) {
 		super(x, y, width, height);
-		speed = 1;
+		super.speed = 1;
 		// TODO Auto-generated constructor stub
 		if (needImage) {
 		    loadImage ("alien.png");
@@ -32,7 +32,6 @@ public class Alien extends GameObject {
 	public void update() {
 		y += speed;
 
-			
 		super.update();
 	}
 

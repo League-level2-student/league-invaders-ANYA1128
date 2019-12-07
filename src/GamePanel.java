@@ -8,6 +8,7 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -81,6 +82,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	void updateGameState() {
 		obj.update();
+		if(rocket.isActive==false) {
+			currentState=END;
+		}
 	}
 
 	void updateEndState() {
@@ -116,7 +120,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.setColor(Color.YELLOW);
 		g.drawString("GAME OVER", 97, 130);
 		g.setFont(scoreFont);
-		g.drawString("You killed enemies", 96, 350);
+		g.drawString("You killed "+obj.score+" enemies", 96, 350);
 		g.setFont(instructionsFont);
 		g.drawString("Press ENTER to restart", 120, 600);
 
@@ -152,6 +156,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			if (currentState == END) {
 				currentState = MENU;
+				Rocketship rocket2 = new Rocketship(250, 700, 50, 50);
+				rocket = rocket2;
+				ObjectManager obj2 = new ObjectManager(rocket2);
+				obj = obj2;
 			} else {
 				currentState++;
 			}
@@ -159,7 +167,16 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			if (currentState == GAME) {
 				startGame();
 			}
+			
 		}
+			if(currentState==MENU) {
+			if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+				
+					JOptionPane.showMessageDialog(null, "Welcome To League Invaders. Your mission is to kill all the aliens. To do so, press space to shoot and move your amazing rocket using the arrow keys. GOOD LUCK!!! ");
+				}
+			}
+			
+		
 		if (currentState == GAME) {
 		
 			if (e.getKeyCode() == KeyEvent.VK_SPACE) {

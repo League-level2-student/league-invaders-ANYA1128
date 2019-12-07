@@ -12,7 +12,7 @@ public class Rocketship extends GameObject {
 
 	Rocketship(int x, int y, int width, int height) {
 		super(x, y, width, height);
-		speed = 15;
+		super.speed = 15;
 		// TODO Auto-generated constructor stub
 		if (needImage) {
 		    loadImage ("rocket.png");

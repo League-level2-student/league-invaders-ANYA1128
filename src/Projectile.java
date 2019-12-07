@@ -12,7 +12,7 @@ public class Projectile extends GameObject {
 
 	Projectile(int x, int y, int width, int height) {
 		super(x, y, width, height);
-		speed = 10;
+		super.speed = 10;
 		// TODO Auto-generated constructor stub
 		if (needImage) {
 		    loadImage ("projectile.png");
